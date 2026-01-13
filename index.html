@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALTUHOVVVV</title>
+    <!-- Подключаем скрипт Телеграма -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #1a1a1a;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .balance {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #f1c40f;
+        }
+
+        .slot-machine {
+            display: flex;
+            gap: 10px;
+            background: #333;
+            padding: 20px;
+            border-radius: 15px;
+            border: 5px solid #444;
+        }
+
+        .slot {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        button {
+            margin-top: 30px;
+            padding: 15px 30px;
+            font-size: 20px;
+            background: #2ecc71;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 4px #27ae60;
+        }
+
+        button:active {
+            box-shadow: none;
+            transform: translateY(4px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="balance">Баланс: <span id="balance-val">1000</span> 🪙</div>
+
+    <div class="slot-machine">
+        <div class="slot" id="slot1"><img src="https://via.placeholder.com/80?text=?" alt=""></div>
+        <div class="slot" id="slot2"><img src="https://via.placeholder.com/80?text=?" alt=""></div>
+        <div class="slot" id="slot3"><img src="https://via.placeholder.com/80?text=?" alt=""></div>
+    </div>
+
+    <button onclick="spin()">КРУТИТЬ</button>
+
+    <script>
+        let tg = window.Telegram.WebApp;
+        tg.expand(); // Раскрыть на всё окно
+
+        let balance = 1000;
+        
+        // --- ТВОИ КАРТИНКИ ---
+        // Замени эти ссылки на свои (можно прямые ссылки из интернета или локальные файлы)
+        const images = [
+            "https://ibb.co/gYVZjF7", // вишня
+            "https://ibb.co/9mL1cBf6",  // Лимон
+            "https://ibb.co/SXWZW0RP"   // Семерка
+        ];
+
+        function spin() {
+            if (balance < 50) {
+                alert("Нет денег");
+                return;
+            }
+
+            balance -= 50;
+            updateUI();
+
+            // Эффект крутилки (просто случайный выбор)
+            const res1 = Math.floor(Math.random() * images.length);
+            const res2 = Math.floor(Math.random() * images.length);
+            const res3 = Math.floor(Math.random() * images.length);
+
+            document.querySelector("#slot1 img").src = images[res1];
+            document.querySelector("#slot2 img").src = images[res2];
+            document.querySelector("#slot3 img").src = images[res3];
+
+            // Проверка выигрыша
+            if (res1 === res2 && res2 === res3) {
+                balance += 500;
+                setTimeout(() => alert("ДЖЕКПОТ! +500"), 100);
+            } else if (res1 === res2 || res1 === res3 || res2 === res3) {
+                balance += 100;
+                setTimeout(() => alert("Малый выигрыш! +100"), 100);
+            }
+
+            updateUI();
+        }
+
+        function updateUI() {
+            document.getElementById('balance-val').innerText = balance;
+        }
+    </script>
+</body>
+</html>
+eout(() => alert("маленький выигрыш +100"), 100);
+            }
+
+            updateUI();
+        }
+
+        function updateUI() {
+            document.getElementById('balance-val').innerText = balance;
+        }
+    </script>
+</body>
+</html>
